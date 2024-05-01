@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main.entity">
+	<!-- 신청자의 입력정보를 신청자 DB에 저장하는 SQL	 -->
+	<insert id="insertApplicant" parameterType="applicant">
+		INSERT INTO Applicant
+		VALUES (#{stuNum}, #{stuName}, #{stuBirth}, #{stuDept},
+		#{stuPhoneNum},
+		#{stuAddress}, #{stuDetailAddress}, #{appliType},
+		#{stuMail},
+		#{auditScore}, #{stuGrade}, #{stuGender})
+	</insert>
+
+	<!-- 심사 합격의 기준이 되는 학생의 정보를 반환하는 SQL -->
+	<select id="selectLastStudent" resultType="applicant">
+	
+		SELECT * FROM APPLICANT
+		WHERE stuGender = #{stuGender}
+		AND appliType = #{appliType}
+		ORDER BY auditScore DESC, stuNum 	
+		LIMIT 1 OFFSET #{Limit}     
+    	    
+	</select>
+	
+	<!-- 동점자가 존재하지 않을 때, 합격자를 반환하는 SQL -->
+	<select id="selectChosenStudent" resultType="applicant">
+		select * from applicant
+		where stuGender = #{stuGender}
+		and appliType = #{appliType}
+		and auditScore >= #{auditScore}
+		order by auditScore DESC
+	</select>
+	
+	<!-- 합격 기준이 되는 학생의 정보를 바탕으로 동점자를 체크하는 SQL -->
+	<select id="selectDupliStudent" resultType="applicant">
+		SELECT * FROM applicant
+		WHERE stuGender = #{stuGender}
+		AND appliType = #{appliType}
+		AND auditScore = #{auditScore}
+	</select>
+
+	<!-- 동점자를 제외한 합격자를 반환하는 SQL -->
+	<select id="selectAcceptStudent" resultType="applicant">
+		SELECT * FROM 
+		( SELECT * FROM applicant
+		WHERE stuGender = #{stuGender}
+		AND appliType = #{appliType}
+		ORDER BY auditScore DESC LIMIT #{Limit} )
+		AS SUB
+		WHERE auditScore NOT IN
+		(#{auditScore})
+	</select>
+
+	<!-- 동점자 중 합격자를 반환하는 SQL -->
+	<select id="selectAddiStudent" resultType="applicant">
+		SELECT * FROM applicant
+		WHERE stuNum = #{stuNum}
+	</select>
+</mapper>
