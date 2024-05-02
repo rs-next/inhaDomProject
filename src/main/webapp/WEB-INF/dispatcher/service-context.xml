@@ -45,5 +45,14 @@
 		<constructor-arg ref="sqlSessionFactory"/>		
 	</bean>
 	
+	<!-- 구글 api 키 파일로드  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:application.properties"/>
+	</bean>
+	
+	<!-- 프로퍼티 사용할 클래스 지정 코드  -->
+	<bean id="apiKey" class="main.service.jdbc.JDBCadminService">
+		<property name="googleMapsApiKey" value="${google.maps.api.key}"/>
+	</bean>
 </beans>
 

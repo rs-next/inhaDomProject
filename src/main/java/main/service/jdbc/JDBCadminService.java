@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.code.geocoder.Geocoder;
@@ -82,7 +83,7 @@ public class JDBCadminService implements adminService {
 	/**	각 방 유형의 입사정원  */
 	int Limit;
 	
-
+	private String apiKey;
 	adminDao adminDao;
 	
 	@Autowired
@@ -205,9 +206,13 @@ public class JDBCadminService implements adminService {
 		return distance;
 	}
 
+	@Value("${google.maps.api.key}")
+	public void setGoogleMapsApiKey(String googleMapsApiKey) {
+		this.apiKey = googleMapsApiKey;
+	}
+	
 	@Override
-	public double[] convertAddTolatLng(String stuAddress) throws IOException {
-		String apiKey = "AIzaSyAMmOiw9Zf-3Kwd51NjfFcA8HfLT3I6u-I";
+	public double[] convertAddTolatLng(String stuAddress) throws IOException {		
 
 		try {
 			// 주소를 URL 인코딩합니다.
