@@ -1,7 +1,6 @@
 package main.service.jdbc;
 
 import java.io.IOException;
-import main.service.adminDao;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -32,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import main.service.adminService;
+import main.dao.adminDao;
 import main.entity.Applicant;
 import main.entity.DuplicateEntity;
 
@@ -112,10 +112,10 @@ public class JDBCadminService implements adminService {
 		switch (roomType){
 			case "2A":
 			case "2B": 
-				Limit = 10;
+				Limit = 4;
 				break;
 			case "4":				
-				Limit = 12;
+				Limit = 4;
 				break;
 		}
 		//심사 객실 타입을 제네릭 내 appliType KEY로 저장

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import main.entity.Applicant;
-import main.service.ApplicantDao;
 
 @Repository
 public class applicantDaoImple implements ApplicantDao{

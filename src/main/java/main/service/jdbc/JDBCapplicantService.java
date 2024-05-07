@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import main.dao.ApplicantDao;
 import main.entity.Applicant;
-import main.service.ApplicantDao;
 import main.service.ApplicantService;
 import java.util.Date;
 

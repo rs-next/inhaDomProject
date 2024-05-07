@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import main.entity.Applicant;
 import main.entity.DuplicateEntity;
-import main.service.adminDao;
 
 @Repository
 public class adminDaoImple implements adminDao {

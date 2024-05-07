@@ -8,9 +8,13 @@
   	<typeAliases>
   		<typeAlias type="main.entity.Applicant" alias="applicant"/>
   		<typeAlias type="main.entity.DuplicateEntity" alias="duplicateEntity"/>
+  		<typeAlias type="main.entity.roomEntity" alias="room"/>
+  		<typeAlias type="main.entity.domMember" alias="domMember"/>
   	</typeAliases>
   	
   	<mappers>
   		<mapper resource="mapper/applicant.xml"/>
+  		<mapper resource="mapper/domMember.xml"/>
   	</mappers>
+  	
   </configuration>
