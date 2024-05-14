@@ -16,12 +16,12 @@ import main.entity.roomEntity;
 import main.service.domMemberService;
 
 @Service
-public class JDBCdomMemberService implements domMemberService{
+public class domMemberServiceImple implements domMemberService{
 	
 	domMemberDao domMemberDao;
 	
 	@Autowired
-	public JDBCdomMemberService(domMemberDao domMemberDao) {
+	public domMemberServiceImple(domMemberDao domMemberDao) {
 		super();
 		this.domMemberDao = domMemberDao;
 	}

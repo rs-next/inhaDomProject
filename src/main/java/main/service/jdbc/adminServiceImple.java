@@ -36,7 +36,7 @@ import main.entity.Applicant;
 import main.entity.DuplicateEntity;
 
 @Service
-public class JDBCadminService implements adminService {
+public class adminServiceImple implements adminService {
 
 	/**
 	 * 신청자들의 학번, 이름 등의 데이터를 저장하는 변수입니다.
@@ -87,7 +87,7 @@ public class JDBCadminService implements adminService {
 	adminDao adminDao;
 	
 	@Autowired
-	public JDBCadminService(adminDao adminDao) {
+	public adminServiceImple(adminDao adminDao) {
 		super();
 		this.adminDao = adminDao;
 	}

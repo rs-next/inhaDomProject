@@ -31,8 +31,8 @@
 	</bean>
 	
 	
-	<bean id="ApplicantService" class="main.service.jdbc.JDBCapplicantService"/>
-	<bean id="adminService" class="main.service.jdbc.JDBCadminService"/>
+	<bean id="ApplicantService" class="main.service.jdbc.applicantServiceImple"/>
+	<bean id="adminService" class="main.service.jdbc.adminServiceImple"/>
 	
 	
 	<!-- mybatis 설정 으로 spring과 마이바티스를 연결하기 위한 클래스-->
@@ -51,7 +51,7 @@
 	</bean>
 	
 	<!-- 프로퍼티 사용할 클래스 지정 코드  -->
-	<bean id="apiKey" class="main.service.jdbc.JDBCadminService">
+	<bean id="apiKey" class="main.service.jdbc.adminServiceImple">
 		<property name="googleMapsApiKey" value="${google.maps.api.key}"/>
 	</bean>
 </beans>

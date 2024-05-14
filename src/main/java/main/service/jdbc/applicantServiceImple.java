@@ -21,13 +21,13 @@ import main.service.ApplicantService;
 import java.util.Date;
 
 @Service
-public class JDBCapplicantService implements ApplicantService{
+public class applicantServiceImple implements ApplicantService{
 
 	
 	ApplicantDao applicantDao;
 	
 	@Autowired
-	public JDBCapplicantService(ApplicantDao applicantDao) {		
+	public applicantServiceImple(ApplicantDao applicantDao) {		
 		this.applicantDao = applicantDao;
 	}
 
