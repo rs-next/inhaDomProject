@@ -1,4 +1,4 @@
-# SPRING Project inhaDom
+## inhaDom
 
 ### Spring + Mybatis + Mysql 을 활용한 기숙사 입사자 자동심사 시스템 구현 프로젝트
 <br>
