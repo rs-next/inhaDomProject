@@ -1,10 +1,7 @@
-## inhaDom
-
-### Spring + Mybatis + Mysql 을 활용한 기숙사 입사자 자동심사 시스템 구현 프로젝트
-<br>
 
 
 ## 📝 inhadom 프로젝트
+### Spring + Mybatis + Mysql 을 활용한 기숙사 입사자 자동심사 시스템 구현 프로젝트
 
 - 기존의 수기 방식으로 진행되던 기숙사 심사 프로세스를 자동화
 - Google API 및 하버사인 공식을 활용하여 동점자 처리 로직 구현
