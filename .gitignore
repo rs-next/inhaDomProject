@@ -1,8 +1,8 @@
 src/main/resources/application.properties
 src/main/webapp/META-INF/context.xml
-/.git/
-/.classpath
-/.project
-/.settings/
-/pom.xml
-/target/
+.idea/
+.settings/
+.project
+.classpath
+.git/
+target/
