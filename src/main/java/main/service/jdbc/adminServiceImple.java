@@ -259,7 +259,7 @@ public class adminServiceImple implements adminService {
 	 * @param Map<String, Object> auditCreterion 입사 정원, 심사 방 타입, 심사 성별, 합격 기준 점수가 포함된 리스트
 	 * @return 최종 선발된 합격자 리스트
 	 * @throws SQLException 데이터베이스 에러가 발생한 경우
-	 * 
+	 * ㅇ
 	 */
 	@Override
 	public List<Applicant> changeDupliEntity(List<DuplicateEntity> DuplicateList, Map<String, Object> auditCreterion) throws SQLException {
