@@ -5,20 +5,41 @@
 
 <mapper namespace="main.domMember">
 	<select id="selectDomMember" resultType="applicant">
-	
+
 		SELECT * FROM APPLICANT
-		WHERE stuNum = #{stuNum}     
-    	    
+		WHERE stuNum = #{stuNum}
+
 	</select>
 	<select id="selectRemainRoom" resultType="room">
 		SELECT * FROM ROOM
 		WHERE roomType= #{appliType}
 		AND roomGender = #{stuGender}
 	</select>
-	
+
 	<insert id="insertDomMember" parameterType="map">
-		INSERT INTO domMember(memNum, roomNum)
+		INSERT INTO
+		domMember(memNum, roomNum)
 		VALUES(#{stuNum}, #{roomNum})
-		
+
 	</insert>
+
+
+	<update id="updateDomMemberData" parameterType="map">
+    <![CDATA[
+    UPDATE domMember AS d
+    JOIN Applicant AS a ON d.memNum = a.stuNum
+    SET d.memName = a.stuName,
+        d.memPW = null,
+        d.memGender = a.stuGender,
+        d.memMail = a.stuMail,
+        d.memAdd = a.stuAddress,
+        d.memDetailAdd = a.stuDetailAddress,
+        d.memScore = 0
+    WHERE d.memNum = #{stuNum} AND d.roomNum = #{roomNum};
+    ]]>
+	</update>
+	
+	<select id="selectAllDomMember" resultType="domMember">
+		select * from domMember
+	</select>
 </mapper>

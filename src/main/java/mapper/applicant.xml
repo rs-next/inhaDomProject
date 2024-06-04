@@ -59,4 +59,6 @@
 		SELECT * FROM applicant
 		WHERE stuNum = #{stuNum}
 	</select>
+	
+	
 </mapper>

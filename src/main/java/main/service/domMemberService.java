@@ -10,4 +10,5 @@ import main.entity.Applicant;
 @Service
 public interface domMemberService {
 	Map<Integer, Integer> insertMember(List<String> stuNum);
+	
 }

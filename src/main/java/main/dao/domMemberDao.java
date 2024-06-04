@@ -16,5 +16,7 @@ public interface domMemberDao {
 
 	List<roomEntity> getRemainRoom(Map<String,String> creterionRoom);
 	int insertDomMember(Map<String,Integer> member);
+	int updateDomMemberData(Map<String,Integer> member);
+	List<domMember> selectAllDomMember();
 	
 }

@@ -39,4 +39,14 @@ public class domMemberDaoImple implements domMemberDao{
 		
 	}
 
+	@Override
+	public int updateDomMemberData(Map<String, Integer> member) {
+		return sqlSession.update("main.domMember.updateDomMemberData", member);
+	}
+
+	@Override
+	public List<domMember> selectAllDomMember() {
+		return sqlSession.selectList("main.domMember.selectAllDomMember");
+	}
+
 }

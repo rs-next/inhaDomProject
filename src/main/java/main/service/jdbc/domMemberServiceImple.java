@@ -70,14 +70,15 @@ public class domMemberServiceImple implements domMemberService{
         Integer domMemNum;
         Integer roomNum;
         int insertFlag;
+        int updateFlag;
         for(Map.Entry<Integer,Integer> member : defineMember.entrySet()) {
         	domMemNum = member.getKey();
         	roomNum = member.getValue();
         	insertMember.put("stuNum",domMemNum);
         	insertMember.put("roomNum",roomNum);
         	insertFlag = domMemberDao.insertDomMember(insertMember);
-        	if(insertFlag != 1) System.out.println("등록 에러" + insertMember.get("stuNum"));        	
-        	
+        	updateFlag = domMemberDao.updateDomMemberData(insertMember);
+        	if(insertFlag != 1 || updateFlag != 1) System.out.println("등록 에러" + insertMember.get("stuNum"));        	        	
         }
         
 

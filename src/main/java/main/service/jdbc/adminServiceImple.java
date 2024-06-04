@@ -103,7 +103,8 @@ public class adminServiceImple implements adminService {
 	 */
 	@Override
 	public List<Applicant> audit(String roomType, String Gender) throws SQLException, IOException {
-		
+		System.out.println("심사 실행\n룸타입 : " + roomType + "\n성별 : " + Gender);
+		System.out.println("-------------------------------------------\n-------------------------------------------");	
 		//합격자 객체 리스트 초기화
 		List<Applicant> applicantList = new ArrayList<>();
 		//심사 기준 데이터 제네릭 초기화
@@ -112,7 +113,7 @@ public class adminServiceImple implements adminService {
 		switch (roomType){
 			case "2A":
 			case "2B": 
-				Limit = 4;
+				Limit = 5;
 				break;
 			case "4":				
 				Limit = 4;
@@ -149,6 +150,8 @@ public class adminServiceImple implements adminService {
 		 * 객체리스트.size() == 1 인 경우 동점자가 존재하지 않으므로 심사 기준을 바탕으로 합격자를 반환합니다.	
 		 */
 		if(DupliStudentList.size() >= 2) {
+			System.out.println("동점자 발생... 동점자 우선순위 선정 메소드 실행");
+			System.out.println("-------------------------------------------");	
 			/** 동점자의 주소지에 따른 위,경도 배열 */
 			double[] latLng = new double[2];
 			
@@ -157,18 +160,22 @@ public class adminServiceImple implements adminService {
 			
 			//동점자들의 수 만큼 반복을 진행합니다.
 			for(Applicant applicant : DupliStudentList) {
+				
 				// 동점자의 학번을 변수에 저장합니다.	
-				stuNum = applicant.getStuNum();
+				stuNum = applicant.getStuNum();				
 				// 동점자의 주소를 변수에 저장합니다.
 				stuAddress = applicant.getStuAddress();
 				// Geocoder API의 위,경도 변환 로직을 통해 동점자의 주소를 바탕으로 위도와 경도를 반환하는 메소드입니다.
 				latLng = convertAddTolatLng(stuAddress);
-				// 하버사인 수식을 사용하여 인하공업전문대학의 위도와 경도, 동점자의 위도와 경도 사이의 거리를 반환하는 메소드입니다.	
+				// 하버사인 수식을 사용하여 인하공업전문대학의 위도와 경도, 동점자의 위도와 경도 사이의 거리를 반환하는 메소드입니다.
+				System.out.println("동점자 학번 : "+stuNum);
 				stuDistance = calByHaversign(latLng[0], latLng[1]);
 				// 도출된 동점자의 학번, 주소, 거리값을 동점자 객체에 저장합니다.
 				DuplicateEntity duplicate = new DuplicateEntity(stuNum, stuAddress, stuDistance);
 				// 동점자 리스트에 동점자 객체를 저장합니다.	
 				DuplicateList.add(duplicate);				
+				System.out.println("해당 학생의 거리점수 : "+stuDistance);
+				System.out.println("-------------------------------------------");	
 			}
 			// 동점자 리스트를 거리를 기준으로 내림차순 정렬하는 메소드입니다.	
 			Collections.sort(DuplicateList);
@@ -178,9 +185,10 @@ public class adminServiceImple implements adminService {
 			// 심사 기준 점수를 바탕으로 합격자 리스트를 반환하는 메소드입니다.	
 			applicantList = adminDao.selectChosenStudent(creterionStudent);
 		}
-		// 합격자 리스트를 반환합니다.	
+		// 합격자 리스트를 반환합니다.
+		
 		return applicantList;
-
+		
 	}
 	
 	
@@ -201,8 +209,7 @@ public class adminServiceImple implements adminService {
 		double squareRoot = Math.sqrt(sinDeltaLat * sinDeltaLat
 				+ Math.cos(inhatcLatLng[0] * toRadian) * Math.cos(stuLat * toRadian) * sinDeltaLng * sinDeltaLng);
 
-		distance = 2 * radius * Math.asin(squareRoot);
-		System.out.println("거리계산완료 : " + distance);
+		distance = 2 * radius * Math.asin(squareRoot);		
 		return distance;
 	}
 
@@ -270,6 +277,8 @@ public class adminServiceImple implements adminService {
 		// 입사정원(Limit) 에서 합격자 리스트에 담긴 인원만큼을 제외하여 합격하게 될 동점자의 수를 연산
 		int additionalCount = (Integer)auditCreterion.get("Limit") - applicantList.size();
 		// 연산된 인원만큼 반복하여 동점자 중 합격 우선순위 순으로 합격자 리스트에 저장
+		System.out.println("-------------------------------------------");		
+		System.out.println("최종 추가 합격자 : ");
 		for(int i=0; i<additionalCount; i++) {
 			// i번째 index에 해당하는 동점자의 객체 정보를 저장
 			DuplicateEntity duplicate = DuplicateList.get(i);
@@ -277,6 +286,7 @@ public class adminServiceImple implements adminService {
 			Applicant addApplicant = adminDao.selectAddiStudent(duplicate.getStuNum());
 			// 검색된 학생 객체를 합격자 리스트에 저장
 			applicantList.add(addApplicant);
+			System.out.println(addApplicant.getStuName());
 		}
 		// 최종 합격 리스트를 반환
 		return applicantList;

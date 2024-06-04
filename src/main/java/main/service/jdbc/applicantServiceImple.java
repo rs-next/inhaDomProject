@@ -114,7 +114,7 @@ public class applicantServiceImple implements ApplicantService{
 			if(NowSemester.equals("4")) {
 				Score = (11 - stuGrade) * 10;
 			}
-			else if(NowSemester.equals("7")){
+			else if(NowSemester.equals("6")){
 				Score = 22 * stuGrade + 1;
 			}
 			else {
@@ -143,7 +143,7 @@ public class applicantServiceImple implements ApplicantService{
 				System.out.println("총점가산 주소 점수 : "+Address_Score +"\n성적점수 : "+Grade_Score+"\n");
 				totalScore = ( Address_Score * 3 + Grade_Score * 7 ) / 10.0;
 			}
-		}else if(NowSemester.equals("7")) {
+		}else if(NowSemester.equals("6")) {
 			System.out.println("총점가산 주소 점수 : "+Address_Score +"\n성적점수 : "+Grade_Score+"\n");
 			totalScore = ( Address_Score * 3 + Grade_Score * 7 ) / 10.0;
 		}
