@@ -11,19 +11,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.inhatcspring.security.securityAccount;
 import main.dao.domMemberDao;
 import main.entity.Account;
 import main.entity.domMember;
-import main.security.securityAccount;
 import main.service.accountService;
 import main.service.jdbc.accountServiceImple;
 
 @Controller
 @RequestMapping("/")
 public class homeController {
-	
-	@Autowired
-	domMemberDao domMemberDao;
+
 	
 	@Autowired
 	accountService accountService;
@@ -33,15 +31,17 @@ public class homeController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public String goJoin() {
 		return "join";
 	}
 	
+	@RequestMapping("accessDenied")
+    public String accessDenied() {
+        return "accessDenied";
+    }
 	
-
-	
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	@RequestMapping(value = "join", method = RequestMethod.POST)
 	public String join(Account account) {
 		account.setDomPW(new BCryptPasswordEncoder().encode(account.getDomPW()));
 		accountService.join(account);
@@ -54,26 +54,10 @@ public class homeController {
 			securityAccount account = (securityAccount)authentication.getPrincipal();
 			model.addAttribute("username", account.getUsername());
 		}
-		return "index";
+		return "login";
 	}
 	
-	@RequestMapping("auditPageAdmin")
-	public String auditPageAdmin() {
-		return "auditPageAdmin";
 	
-	}
 	 
-	@RequestMapping("auditMember")
-	public String auditMeber() {
-		return "admin/auditMember";
-	}
-	
-	@RequestMapping("showRoomStatus")
-	public String showRoomStatus(Model model) {
-		List<domMember> domMembers = new ArrayList<>();
-		domMembers = domMemberDao.selectAllDomMember();
-		model.addAttribute("domMembers",domMembers);
-		System.out.println("가져는왔니?");
-		return "showRoomStatus";
-	}
+
 }

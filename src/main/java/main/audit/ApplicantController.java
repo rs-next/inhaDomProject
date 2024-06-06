@@ -27,15 +27,9 @@ public class ApplicantController {
 	
 	
 	private ApplicantService applicantService;	
-	@Autowired
-	private domMemberService domMemberService; 
-	@Autowired
-	private adminService adminService;
 	
-	public ApplicantController(@Qualifier("adminService") main.service.adminService adminService) {
-		super();
-		this.adminService = adminService;
-	}
+	
+	
 
 	@Autowired	
 	public ApplicantController(@Qualifier("ApplicantService") ApplicantService applicantService) {
@@ -51,26 +45,10 @@ public class ApplicantController {
 		return "ApplicantInsert";
 	}
 	
-	@RequestMapping(value="admin/auditAction", method=RequestMethod.POST)
-	public String auditAction(
-			Model model, 
-			@RequestParam("stuGender") String stuGender, 
-			@RequestParam("roomType") String roomType) throws SQLException, IOException {
-		List<Applicant> completApplicant =  adminService.audit(roomType, stuGender);		
-		model.addAttribute("completApplicant", completApplicant);
-		System.out.println("completApplicant.toString() : "+completApplicant.toString());		
-		return "admin/auditAction";
-	}
+	@RequestMapping("auditPageAdmin")
+	public String auditPageAdmin() {
+		return "auditPageAdmin";
 	
-	@RequestMapping(value="admin/insertDomMember",method=RequestMethod.POST)
-	public String insertDomMember(
-			Model model,
-	        @RequestParam("stuNum[]") List<String> stuNum) {
-		Map<Integer,Integer> domMemberList = domMemberService.insertMember(stuNum);
-		model.addAttribute("domMember", domMemberList);
-		return "admin/insertDomMember";
-		
 	}
-	
 
 }

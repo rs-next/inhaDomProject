@@ -3,36 +3,41 @@
        xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <sec:debug />
-	<sec:http pattern="/resources/**" security="none"/>
-	
-	<sec:http use-expressions="true">
-		<sec:intercept-url pattern="/login" access="permitAll()"/>
-		<sec:intercept-url pattern="/join" access="permitAll()"/>
-		<sec:intercept-url pattern="/" access="permitAll()"/>
-		
-		<sec:intercept-url pattern="/**" access="isAuthenticated()"/>
-		
-		<sec:form-login login-page="/login"
-			login-processing-url="/login"
-			authentication-failure-url="/login"
-			username-parameter="domID"
-			password-parameter="domPW"
-			default-target-url="/"
-			always-use-default-target="true"/>
-			
-		<sec:logout logout-url="/logout" logout-success-url="/login" invalidate-session="true" delete-cookies="JSESSIONID"/>
-		
-	</sec:http>
-	
-	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-	<bean id="securityAccountService" class="main.security.securityAccountService"/>
-	<sec:authentication-manager>
-		<sec:authentication-provider user-service-ref="securityAccountService">
-			<sec:password-encoder ref="bCryptPasswordEncoder" />
-		</sec:authentication-provider>
-	</sec:authentication-manager>
+    <sec:debug />
+    <sec:http pattern="/resources/**" security="none"/>
+    
+    <sec:http use-expressions="true">
+        <sec:csrf/>
+        <sec:intercept-url pattern="/login" access="permitAll()"/>
+        <sec:intercept-url pattern="/join" access="permitAll()"/>        
+        <sec:intercept-url pattern="/logout" access="permitAll()" />
+        <sec:intercept-url pattern="/accessDenied" access="permitAll()" />
+        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <sec:intercept-url pattern="/" access="permitAll()"/>
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+        
+        
+        <sec:form-login login-page="/login"
+            login-processing-url="/login"
+            authentication-failure-url="/login?error=true"
+            username-parameter="domID"
+            password-parameter="domPW"
+            authentication-success-handler-ref="customAuthenticationSuccessHandler"/>
+            
+        <sec:logout logout-url="/logout" logout-success-url="/login" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <sec:access-denied-handler ref="customAccessDeniedHandler"/>
+    </sec:http>
+    
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="userDetailsService" class="main.security.securityAccountService"/>
+    <sec:authentication-manager>
+        <sec:authentication-provider user-service-ref="userDetailsService">
+            <sec:password-encoder ref="bCryptPasswordEncoder" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>
 
+    <bean id="customAuthenticationSuccessHandler" class="main.security.CustomAuthenticationSuccessHandler"/>
+    <bean id="customAccessDeniedHandler" class="main.security.CustomAccessDeniedHandler"/>
 </beans>

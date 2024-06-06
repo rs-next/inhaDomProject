@@ -13,6 +13,10 @@
 <body>
 	<div class="container mt-5">
 		<h1 class="mb-4">입사 신청폼</h1>
+		<form action="/logout" method="post">
+		 	<sec:csrfInput />
+			<input type="submit" value="로그아웃">
+		</form>
 		<form action="/view/ApplicantInsert" method="post">
 			<div class="form-group">
 				<label for="stuName">이름</label> <input type="text"

@@ -4,18 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import kr.co.inhatcspring.security.securityAccount;
+import main.entity.Account;
 import main.mapperDao.accountMapper;
 
-public class securityAccountService implements UserDetailsService{
+@Service
+public class securityAccountService implements UserDetailsService {
 
-	@Autowired
-	accountMapper accountMapper;
-	
-	@Override
-	public UserDetails loadUserByUsername(String domID) throws UsernameNotFoundException {
-		securityAccount account = new securityAccount(accountMapper.getAccountById(domID));
-		return account;
-	}
-
+    @Autowired
+    private accountMapper accountMapper;
+    
+    @Override
+    public UserDetails loadUserByUsername(String domID) throws UsernameNotFoundException {
+        Account account = accountMapper.getAccountById(domID);
+        if (account == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return new securityAccount(account);
+    }
 }
