@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main.mapperDao.accountMapper">
+
+	<!-- 신청자의 입력정보를 신청자 DB에 저장하는 SQL	 -->
+	<insert id="insertAccount" parameterType="applicant">
+		insert into Account(domID,domPW,email,phone,role) values(#{domID}, #{domPW}, #{email}, #{phone}, 'ROLE_USER')
+	</insert>
+
+	
+	<select id="getAccountById" resultType="account" parameterType="string">
+		select * from Account where domID = #{domID};
+	</select>
+</mapper>

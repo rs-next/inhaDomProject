@@ -3,18 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 
-  <configuration>
-  
-  	<typeAliases>
-  		<typeAlias type="main.entity.Applicant" alias="applicant"/>
-  		<typeAlias type="main.entity.DuplicateEntity" alias="duplicateEntity"/>
-  		<typeAlias type="main.entity.roomEntity" alias="room"/>
-  		<typeAlias type="main.entity.domMember" alias="domMember"/>
-  	</typeAliases>
-  	
-  	<mappers>
-  		<mapper resource="mapper/applicant.xml"/>
-  		<mapper resource="mapper/domMember.xml"/>
-  	</mappers>
-  	
-  </configuration>
+<configuration>
+    <typeAliases>
+        <typeAlias type="main.entity.Applicant" alias="applicant"/>
+        <typeAlias type="main.entity.DuplicateEntity" alias="duplicateEntity"/>
+        <typeAlias type="main.entity.roomEntity" alias="room"/>
+        <typeAlias type="main.entity.domMember" alias="domMember"/>
+        <typeAlias type="main.entity.Account" alias="account"/>
+    </typeAliases>
+    
+    <mappers>
+        <mapper resource="mapper/applicant.xml"/>
+        <mapper resource="mapper/domMember.xml"/>
+        <mapper resource="mapper/account.xml"/>
+        <!-- 중복 선언 제거 -->
+        <!-- <mapper class="main.mapperDao.accountMapper"/> -->
+    </mappers>
+</configuration>

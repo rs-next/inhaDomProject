@@ -1,58 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/mvc 
-		https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/context
-		https://www.springframework.org/schema/context/spring-context.xsd">  <!-- 스키마 파일을 식별하여 사용하는 것은 네임 스페이스를 활용 -->
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           https://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc 
+                           https://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context
+                           https://www.springframework.org/schema/context/spring-context.xsd
+                           http://mybatis.org/schema/mybatis-spring
+                           https://mybatis.org/schema/mybatis-spring.xsd">
 
-	<context:component-scan base-package="main.service.jdbc"/>
-	<context:component-scan base-package="main.dao"/>
-	
-	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/> 
-		<property name="url" value="jdbc:mysql://localhost:3306/inhadom"/>
-		<property name="username" value="root"/>
-		<property name="password" value="rootpw"/>
-		
-	</bean>  -->
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="jdbc/myspring"/>
-		<property name="resourceRef" value="true"/>
-	</bean>
-	<bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
-		<constructor-arg ref="dataSource"/>
-	</bean>
-	
-	
-	<bean id="ApplicantService" class="main.service.jdbc.applicantServiceImple"/>
-	<bean id="adminService" class="main.service.jdbc.adminServiceImple"/>
-	
-	
-	<!-- mybatis 설정 으로 spring과 마이바티스를 연결하기 위한 클래스-->
-	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	 	<property name="dataSource" ref="dataSource"/>
-	 	<property name="configLocation" value="/WEB-INF/dispatcher/mybatis-config.xml"/>
-	</bean>		
-	<!-- 마이바티스의 핵심 클래스를 실행하기 위한 메소드 제공 -->
-	<bean id="SqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>		
-	</bean>
-	
-	<!-- 구글 api 키 파일로드  -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:application.properties"/>
-	</bean>
-	
-	<!-- 프로퍼티 사용할 클래스 지정 코드  -->
-	<bean id="apiKey" class="main.service.jdbc.adminServiceImple">
-		<property name="googleMapsApiKey" value="${google.maps.api.key}"/>
-	</bean>
+    <context:component-scan base-package="main.service.jdbc"/>
+    <context:component-scan base-package="main.dao"/>
+    <context:component-scan base-package="main.mapperDao"/>
+    <mybatis-spring:scan base-package="main.mapperDao"/>
+    
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/myspring"/>
+        <property name="resourceRef" value="true"/>
+    </bean>
+    
+    <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+    
+    <bean id="ApplicantService" class="main.service.jdbc.applicantServiceImple"/>
+    <bean id="adminService" class="main.service.jdbc.adminServiceImple"/>
+    <bean id="accountService" class="main.service.jdbc.accountServiceImple"/>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="/WEB-INF/dispatcher/mybatis-config.xml"/>
+    </bean>       
+    
+    <bean id="SqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>       
+    </bean>
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:application.properties"/>
+    </bean>
+    
+    <bean id="apiKey" class="main.service.jdbc.adminServiceImple">
+        <property name="googleMapsApiKey" value="${google.maps.api.key}"/>
+    </bean>
 </beans>
-

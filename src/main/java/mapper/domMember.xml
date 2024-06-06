@@ -40,6 +40,6 @@
 	</update>
 	
 	<select id="selectAllDomMember" resultType="domMember">
-		select * from domMember
+		select * from domMember order by roomNum desc
 	</select>
 </mapper>
