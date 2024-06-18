@@ -41,7 +41,7 @@
     <div class="container mt-5">
         <h1 class="mb-4">해당 방 타입 합격자 명단</h1>
        
-        <form action="/view/admin/insertDomMember" method="post">
+        <form action="/admin/insertDomMember" method="post">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -62,6 +62,7 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <button type="submit" class="btn btn-primary btn-dark">생활관 회원으로 등록</button>
         </form>
     </div>

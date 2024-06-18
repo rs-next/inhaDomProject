@@ -30,7 +30,7 @@
 <body>
     <div class="container mt-5 p-4 bg-white rounded">
         <h1 class="mb-4">심사 자동화</h1>
-        <form action="/view/admin/auditAction" method="post">
+        <form action="/admin/auditAction" method="post">
             <div class="form-group">
                 <label for="roomType">심사 방타입</label>
                 <select class="form-control" id="roomType" name="roomType">
@@ -50,6 +50,7 @@
                     <label class="custom-control-label" for="customRadioFemale">W</label>
                 </div>
             </div>
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <button type="submit" class="btn btn-primary btn-dark">심사</button>
         </form>
     </div>

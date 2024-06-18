@@ -63,7 +63,7 @@ body, h1, h2, .btn-primary {
 			<li class="nav-item"><a class="nav-link"
 				href="/view/auditPageAdmin">기숙사 신청</a></li>
 			<li class="nav-item">
-			<!--#{pageContext.request.contextPath}는 프로젝트의 컨택스트 루트 경로가 된다. -->
+			
 				<form action="${pageContext.request.contextPath}/logout"
 					method="post" style="display: inline;">
 					<input type="hidden" name="${_csrf.parameterName}"

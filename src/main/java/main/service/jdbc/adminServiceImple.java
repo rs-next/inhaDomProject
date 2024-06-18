@@ -244,8 +244,8 @@ public class adminServiceImple implements adminService {
 				double[] latLng = new double[2];
 				latLng[0] = location.get("lat").getAsDouble();
 				latLng[1] = location.get("lng").getAsDouble();
-				System.out.println("위도: " + latLng[0]);
-				System.out.println("경도: " + latLng[1]);
+				System.out.println("Geocoder API 응답결과 || 위도: " + latLng[0]);
+				System.out.println("Geocoder API 응답결과 || 경도: " + latLng[1]);
 				return latLng;
 			} else {
 				System.out.println("변환된 결과가 없습니다.");

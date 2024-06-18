@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import kr.co.inhatcspring.security.securityAccount;
+
 import main.entity.Account;
 import main.mapperDao.accountMapper;
 

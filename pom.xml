@@ -103,11 +103,7 @@
 		    <version>1.2.17</version>
 		</dependency>
         <!-- Project specific dependency -->
-        <dependency>
-            <groupId>ServerFinal</groupId>
-            <artifactId>ServerFinal</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
     <properties>

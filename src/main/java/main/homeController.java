@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.inhatcspring.security.securityAccount;
+import main.security.securityAccount;
 import main.dao.domMemberDao;
 import main.entity.Account;
 import main.entity.domMember;
